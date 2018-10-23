@@ -1,0 +1,35 @@
+# 基本は github.com のレポジトリーを指定するだけ
+[[plugins]]
+repo = 'Shougo/dein.vim'
+
+# vim のカラースキーム
+[[plugins]]
+repo      = 'tomasr/molokai'
+hook_add  = '''
+  set background=dark
+  " colorscheme 設定は source 後に行う必要があるので VimEnter で行う
+  " 但し Colorscheme イベントの発生が抑制されないよう nested を付ける
+  au MyAutoCmd VimEnter * nested colorscheme molokai
+'''
+
+# サイドバーにディレクトリツリーを一覧表示
+[[plugins]]
+repo = 'scrooloose/nerdtree'
+
+# 下のステータスバー
+[[plugins]]
+repo    = 'vim-airline/vim-airline'
+depends = ['vim-airline-themes']
+[[plugins]]
+repo = 'vim-airline/vim-airline-themes'
+
+# インデントの深さの視覚化
+[[plugins]]
+repo      = 'nathanaelkane/vim-indent-guides'
+hook_add  = '''
+  " vimを立ち上げたときに自動的にvim-indent-guidesをオンにする
+  let g:indent_guides_enable_on_vim_startup = 1
+  let g:indent_guides_auto_colors = 0
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#2E2E2E ctermbg=3
+  autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#424242 ctermbg=4
+'''
