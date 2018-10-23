@@ -1,0 +1,5 @@
+# インサートモードに入ったら読み込む
+#[[plugins]]
+#repo = 'Shougo/neocomplete.vim'
+#on_i = 1
+
