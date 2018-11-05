@@ -1,0 +1,66 @@
+source ~/.zplug/init.zsh
+
+# (1) プラグインを定義する
+# Zshの候補選択を拡張するプラグイン．
+zplug 'zsh-users/zsh-completions'
+# pecoのようなインタラクティブフィルタツールのラッパ．
+zplug 'mollifier/anyframe'
+# 簡単にgitルートへcdするやつ．
+zplug 'mollifier/cd-gitroot'
+
+# 色関係のプラグイン
+# プロンプトのコマンドを色付けするプラグイン．
+zplug 'zsh-users/zsh-syntax-highlighting'
+
+# ディレクトリの高速移動
+zplug "b4b4r07/enhancd", use:init.sh
+ENHANCD_HOOK_AFTER_CD=ls
+
+
+# (2) インストールする
+# check コマンドで未インストール項目があるかどうか verbose にチェックし
+# false のとき（つまり未インストール項目がある）y/N プロンプトで
+# インストールする
+if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+        echo; zplug install
+    fi
+fi
+
+# プラグインを読み込み、コマンドにパスを通す
+# zplug load --verbose
+zplug load
+
+#-------------------------------------------------------------------------------
+
+# 補完機能
+autoload -U compinit
+compinit
+
+# prompt
+PROMPT='%m:%c %n$ '
+
+# コマンド履歴
+HISTFILE=~/.zsh_history
+HISTSIZE=6000000
+SAVEHIST=6000000
+setopt hist_ignore_dups     # ignore duplication command history list
+setopt share_history        # share command history data
+
+# コマンド履歴検索
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "^P" history-beginning-search-backward-end
+bindkey "^N" history-beginning-search-forward-end
+
+# alias
+alias diff="coloddiff"
+alias ls="ls -G"
+
+#-------------------------------------------------------------------------------
+
+PYENV_ROOT=~/.pyenv
+export PATH=$PATH:$PYENV_ROOT/bin
+eval "$(pyenv init -)"

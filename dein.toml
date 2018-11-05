@@ -1,6 +1,6 @@
 # 基本は github.com のレポジトリーを指定するだけ
 [[plugins]]
-repo = 'Shougo/dein.vim'
+repo  = 'Shougo/dein.vim'
 
 # vim のカラースキーム
 [[plugins]]
@@ -12,16 +12,29 @@ hook_add  = '''
   au MyAutoCmd VimEnter * nested colorscheme molokai
 '''
 
-# サイドバーにディレクトリツリーを一覧表示
-[[plugins]]
-repo = 'scrooloose/nerdtree'
-
 # 下のステータスバー
 [[plugins]]
 repo    = 'vim-airline/vim-airline'
 depends = ['vim-airline-themes']
+hook_add = '''
+  let g:airline_powerline_fonts = 1
+  set laststatus=2
+  let g:airline_theme = 'molokai'
+'''
 [[plugins]]
 repo = 'vim-airline/vim-airline-themes'
+
+# 複数行をまとめてコメントアウト
+[[plugins]]
+repo  = 'tomtom/tcomment_vim'
+
+# jkコマンドの移動速度上昇
+[[plugins]]
+repo  = 'rhysd/accelerated-jk'
+hook_add  = '''
+  nmap j <Plug>(accelerated_jk_gj)
+  nmap k <Plug>(accelerated_jk_gk)
+'''
 
 # インデントの深さの視覚化
 [[plugins]]
@@ -33,3 +46,29 @@ hook_add  = '''
   autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#2E2E2E ctermbg=3
   autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#424242 ctermbg=4
 '''
+
+# NERDTree------------------------------------------------------------
+# サイドバーにディレクトリツリーを一覧表示
+[[plugins]]
+repo  = 'scrooloose/nerdtree'
+hook_add  = '''
+  " ファイルを開いたらNERDTreeを閉じる
+  let g:NERDTreeQuitOnOpen=1
+  " 不可視ファイルを表示する
+  let NERDTreeShowHidden = 1
+  " 非表示ファイル
+  let g:NERDTreeIgnore=['\.git$', '\.clean$', '\.swp$', '\.bak$', '\~$']
+'''
+# タブ間でNERDTreeを共有する
+[[plugins]]
+repo  = 'jistr/vim-nerdtree-tabs'
+hook_add  = '''
+  if argc() == 0
+    let g:nerdtree_tabs_open_on_console_startup = 1
+  endif
+'''
+
+# denite------------------------------------------------------------
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+

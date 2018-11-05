@@ -30,8 +30,8 @@ if dein#load_state(s:dein_dir)
   " プラグインリストを収めた TOML ファイル
   " 予め TOML ファイル（後述）を用意しておく
   let g:rc_dir    = expand('~/.vim/rc')
-  let s:toml      = g:rc_dir . '/dein.toml'
-  let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
+  let s:toml      = g:rc_dir . '/dein_slink.toml'
+  let s:lazy_toml = g:rc_dir . '/dein_lazy_slink.toml'
 
   " TOML を読み込み、キャッシュしておく
   call dein#load_toml(s:toml,      {'lazy': 0})
@@ -61,14 +61,13 @@ scriptencoding utf-8
 set fileencoding=utf-8  " 保存時の文字コード
 set fileencodings=ucs-boms,utf-8,euc-jp,cp932 " 読み込み時の文字コードの自動判別. 左側が優先される
 set fileformats=unix,dos,mac " 改行コードの自動判別. 左側が優先される
-set ambiwidth=double    " □や○文字が崩れる問題を解決
 
 " タブ・インデント
 set expandtab     " タブ入力を複数の空白入力に置き換える
-set tabstop=2     " 画面上でタブ文字が占める幅
-set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
 set autoindent    " 改行時に前の行のインデントを継続する
 set smartindent   " 改行時に前の行の構文をチェックし次の行のインデントを増減する
+set tabstop=2     " 画面上でタブ文字が占める幅
+set softtabstop=2 " 連続した空白に対してタブキーやバックスペースキーでカーソルが動く幅
 set shiftwidth=2  " smartindentで増減する幅
 
 " 文字列検索
@@ -87,8 +86,16 @@ set showmatch   " 括弧の対応関係を一瞬表示する
 " 行が折り返し表示されていた場合、行単位ではなく表示行単位でカーソルを移動する
 nnoremap j gj
 nnoremap k gk
+vnoremap j gj
+vnoremap k gk
 nnoremap <down> gj
 nnoremap <up> gk
+
+" ウィンドウ移動
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " コマンド補完
 set wildmenu      " コマンドモードの補完
